@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Guessing Game</title>
+      <link rel="stylesheet" href="/bower_components/normalize-css/normalize.css" />
+      <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <section>
+              <h1 class="text-center">Guessing Game</h1>
+              <p>
+                I'm thinking of a number between 1 and 100.   Let's see if you can figure it out!
+              </p>
+              <form class="form">
+                <div class="form-group">
+                  <input class="form-control" type="number" placeholder="Your Guess" autofocus required>
+                </div>
+                <div class="form-group text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+              </form>
+              <div class="text-center">
+                <button class="btn btn-default" type="button">Get a Hint</button>
+                <button class="btn btn-default" type="button">Play Again</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </body>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/game.js">
+</html>

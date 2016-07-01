@@ -1,0 +1,22 @@
+{
+  "name": "guessing-game",
+  "homepage": "https://github.com/ingridcronburg/guessing-game",
+  "authors": [
+    "Ingrid Cronburg <ingrid257@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "normalize-css": "normalize.css#^4.2.0"
+  }
+}

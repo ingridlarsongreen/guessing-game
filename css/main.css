@@ -1,0 +1,18 @@
+h1 {
+  color: #90d4cf;
+  text-shadow: #e1e1e1 4px 4px 5px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #90d4cf;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
+  background-color: #90d4cf;
+  border-color: #90d4cf;
+}
+
+.btn:active:focus, .btn:focus {
+  outline: none;
+}
