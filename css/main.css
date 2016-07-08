@@ -1,3 +1,10 @@
+html{
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
 h1 {
   color: #90d4cf;
   text-shadow: #e1e1e1 4px 4px 5px;
@@ -8,11 +15,38 @@ h1 {
   border-color: #90d4cf;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
+.btn-primary, .btn-primary:hover, .btn-primary[disabled]:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
   background-color: #90d4cf;
   border-color: #90d4cf;
 }
 
 .btn:active:focus, .btn:focus {
   outline: none;
+}
+
+.winner {
+  background: radial-gradient(#fff, #a1fffa) no-repeat;
+}
+
+.winner p {
+  font-size: 36px;
+  text-shadow: 10px 10px 10px;
+  transition: all 1s;
+}
+
+.loser {
+  background: radial-gradient(#fff, #b8b8b8) no-repeat;
+}
+
+#message {
+  text-align: center;
+}
+
+#guess-counter {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#hint-message {
+  margin-top: 10px;
 }

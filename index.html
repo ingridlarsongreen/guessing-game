@@ -15,20 +15,27 @@
           <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
             <section>
               <h1 class="text-center">Guessing Game</h1>
-              <p>
+              <p id="message">
                 I'm thinking of a number between 1 and 100.   Let's see if you can figure it out!
               </p>
-              <form class="form">
+              <form id="game-form" class="form">
                 <div class="form-group">
-                  <input class="form-control" type="number" placeholder="Your Guess" autofocus required>
+                  <input id="guess" class="form-control" type="number" placeholder="Your Guess" autofocus required>
                 </div>
                 <div class="form-group text-center">
-                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <button id="submit-button" class="btn btn-primary" type="submit">Submit</button>
                 </div>
               </form>
               <div class="text-center">
-                <button class="btn btn-default" type="button">Get a Hint</button>
-                <button class="btn btn-default" type="button">Play Again</button>
+                <button id="hint-button" class="btn btn-default" type="button">Get a Hint</button>
+                <button id="play-again"class="btn btn-default" type="button">Play Again</button>
+              </div>
+              <p id="guess-counter">
+                Guesses Remaining: <span id="counter">5</span>
+              </p>
+              <div id="hint-message" class="alert alert-info alert-dismissible hidden" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p></p>
               </div>
             </section>
           </div>
@@ -37,5 +44,58 @@
     </body>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/js/game.js">
+    <script src="/js/game.js"></script>
+    <script>
+      var game = new GuessingGame();
+
+      $("#game-form").submit(function(event) {
+        event.preventDefault();
+        game.setGuess($("#guess").val());
+        $("#guess").val("");
+
+        if (game.canPlay()) {
+          if (game.isDuplicate()) {
+            $("#message").text("You already guessed that number. Try again!");
+            $("#counter").text(game.guessesLeft());
+          } else if (game.checkGuess()) {
+            game.addToGuesses();
+            $("#message").text("WINNER!!!");
+            $("#guess").attr("placeholder", "").prop("disabled", true);
+            $("#submit-button").prop("disabled", true);
+            $("#hint-button").prop("disabled", true);
+            $("#guess-counter").remove();
+            $("#hint-message").addClass("hidden");
+            $("body").addClass("winner");
+          } else {
+            game.addToGuesses();
+            if (game.guessDistance() < 20) {
+              $("#message").text("Good guess! You're getting warm. Try something a little " + game.lowerOrHigher() + ".");
+              $("#counter").text(game.guessesLeft());
+            } else {
+              $("#message").text("Not even close! Try something " + game.lowerOrHigher() + ".");
+              $("#counter").text(game.guessesLeft());
+            }
+          }
+        } else {
+          game.addToGuesses();
+          $("#message").text("Sorry, you lost! The number I was thinking of was " + game.winningNumber + ".");
+          $("#guess").attr("placeholder", "").prop("disabled", true);
+          $("#submit-button").prop("disabled", true);
+          $("#hint-button").prop("disabled", true);
+          $("#guess-counter").remove();
+          $("#hint-message").addClass("hidden");
+          $("body").addClass("loser");
+        }
+      });
+
+      $("#hint-button").one('click', function() {
+        var hint = game.hint().sort(function(x, y) { return x- y; }).join(", ");
+        $("#hint-message p").html("It might be one of these: " + hint);
+        $("#hint-message").removeClass("hidden");
+      })
+
+      $("#play-again").click(function() {
+        location.reload(true);
+      })
+    </script>
 </html>
