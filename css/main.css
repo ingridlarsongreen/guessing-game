@@ -1,52 +1,49 @@
-html{
-  height: 100%;
-}
+html {
+  height: 100%; }
+
 body {
-  min-height: 100%;
-}
+  min-height: 100%; }
 
 h1 {
   color: #90d4cf;
-  text-shadow: #e1e1e1 4px 4px 5px;
-}
+  text-shadow: #e1e1e1 4px 4px 5px; }
 
 .form-control:focus {
   box-shadow: none;
-  border-color: #90d4cf;
-}
+  border-color: #90d4cf; }
 
 .btn-primary, .btn-primary:hover, .btn-primary[disabled]:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
   background-color: #90d4cf;
-  border-color: #90d4cf;
-}
+  border-color: #90d4cf; }
 
-.btn:active:focus, .btn:focus {
-  outline: none;
-}
+.btn-default, .btn-default:hover, .btn-default[disabled]:hover, .btn-default:active, .btn-default:focus, .btn-default:active:focus {
+  background-color: #fff;
+  outline: none; }
+
+.alert-info {
+  color: #fff;
+  background: #90d4cf; }
+
+.gameplay #instructions {
+  display: none; }
 
 .winner {
-  background: radial-gradient(#fff, #a1fffa) no-repeat;
-}
-
-.winner p {
-  font-size: 36px;
-  text-shadow: 10px 10px 10px;
-  transition: all 1s;
-}
+  background: radial-gradient(#fff, #a1fffa) no-repeat; }
+  .winner p {
+    font-size: 36px;
+    text-shadow: 10px 10px 10px;
+    transition: all 1s; }
 
 .loser {
-  background: radial-gradient(#fff, #b8b8b8) no-repeat;
-}
+  background: radial-gradient(#fff, #b8b8b8) no-repeat; }
 
-#message {
-  text-align: center;
-}
+.winner form, .winner #hint-button, .winner #guess-counter, .winner #player-guesses, .winner #hint-message, .loser form, .loser #hint-button, .loser #guess-counter, .loser #player-guesses, .loser #hint-message {
+  display: none; }
 
-#guess-counter {
-  margin-top: 10px;
-  text-align: center;
-}
+#instructions, #status, #guess-counter, #player-guesses {
+  text-align: center; }
 
-#hint-message {
-  margin-top: 10px;
-}
+#guess-counter, #hint-message {
+  margin-top: 10px; }
+
+/*# sourceMappingURL=main.css.map */

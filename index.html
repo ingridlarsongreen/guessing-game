@@ -15,9 +15,8 @@
           <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
             <section>
               <h1 class="text-center">Guessing Game</h1>
-              <p id="message">
-                I'm thinking of a number between 1 and 100.   Let's see if you can figure it out!
-              </p>
+              <p id="instructions">I'm thinking of a number between 1 and 100.<br /> Can you figure it out?</p>
+              <p id="status"></p>
               <form id="game-form" class="form">
                 <div class="form-group">
                   <input id="guess" class="form-control" type="number" placeholder="Your Guess" autofocus required>
@@ -30,11 +29,9 @@
                 <button id="hint-button" class="btn btn-default" type="button">Get a Hint</button>
                 <button id="play-again"class="btn btn-default" type="button">Play Again</button>
               </div>
-              <p id="guess-counter">
-                Guesses Remaining: <span id="counter">5</span>
-              </p>
-              <div id="hint-message" class="alert alert-info hidden" role="alert">
-              </div>
+              <p id="guess-counter">Guesses Remaining: <span id="counter">5</span></p>
+              <p id="player-guesses"></p>
+              <div id="hint-message" class="alert alert-info hidden" role="alert"></div>
             </section>
           </div>
         </div>
@@ -48,50 +45,52 @@
 
       $("#game-form").submit(function(event) {
         event.preventDefault();
+
+        $("body").addClass("gameplay");
+
         game.setGuess($("#guess").val());
         $("#guess").val("");
 
-        if (game.canPlay()) {
-          if (game.isDuplicate()) {
-            $("#message").text("You already guessed that number. Try again!");
-            $("#counter").text(game.guessesLeft());
-          } else if (game.checkGuess()) {
-            game.addToGuesses();
-            $("#message").text("WINNER!!!");
-            $("#guess").attr("placeholder", "").prop("disabled", true);
-            $("#submit-button, #hint-button").prop("disabled", true);
-            $("#guess-counter, #hint-message").addClass("hidden");
+        game.addToGuesses();
+
+        if (game.getGuessesArray().indexOf(game.getGuess()) !== game.getGuessesArray().length - 1) {
+          game.removeGuessFromGuesses();
+          $("#status").text("You already guessed that number. Try again!");
+        } else {
+          if (game.checkGuess()) {
             $("body").addClass("winner");
+            $("#status").text("WINNER!!!");
           } else {
-            game.addToGuesses();
-            if (game.isWarm()) {
-              $("#message").text("Good guess! You're getting warm. Try something a little " + game.lowerOrHigher() + ".");
-              $("#counter").text(game.guessesLeft());
+            $("#counter").text(game.guessesLeft());
+            $("#player-guesses").html('Your Guesses: <span id="guesses"></span>');
+            $("#guesses").text(game.getGuessList());
+
+            if (!game.isLastGuess()) {
+              if (game.guessIsWarm()) {
+                $("#status").text("Good guess! You're getting warm. Try something a little " + game.lowerOrHigher() + ".");
+              } else {
+                $("#status").text("Not even close! Try something " + game.lowerOrHigher() + ".");
+              }
             } else {
-              $("#message").text("Not even close! Try something " + game.lowerOrHigher() + ".");
-              $("#counter").text(game.guessesLeft());
+              $("body").addClass("loser");
+              $("#status").text("Sorry, you lost! My number was " + game.getWinningNumber() + ".");
             }
           }
-        } else {
-          game.addToGuesses();
-          $("#message").text("Sorry, you lost! The number I was thinking of was " + game.getWinningNumber() + ".");
-          $("#guess").attr("placeholder", "").prop("disabled", true);
-          $("#submit-button").prop("disabled", true);
-          $("#hint-button").prop("disabled", true);
-          $("#guess-counter").addClass("hidden");
-          $("#hint-message").addClass("hidden");
-          $("body").addClass("loser");
         }
-      });
+    });
 
-      $("#hint-button").click(function() {
-        $("#hint-message").text("Choose wisely: " + game.getHint());
-        $("#hint-message").removeClass("hidden");
-      });
+    $("#hint-button").click(function() {
+      $("#hint-message").text("Choose wisely: " + game.getHint());
+      $("#hint-message").removeClass("hidden");
+    });
 
-      $("#play-again").click(function() {
-        game.reset();
-
-      });
+    $("#play-again").click(function() {
+      game.reset();
+      $("body").removeClass("gameplay winner loser");
+      $("#guess").focus();
+      $("#status, #player-guesses").text("");
+      $("#counter").text(game.guessesLeft());
+      $("#hint-message").addClass("hidden");
+    });
     </script>
 </html>
