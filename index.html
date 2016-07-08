@@ -33,9 +33,7 @@
               <p id="guess-counter">
                 Guesses Remaining: <span id="counter">5</span>
               </p>
-              <div id="hint-message" class="alert alert-info alert-dismissible hidden" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <p></p>
+              <div id="hint-message" class="alert alert-info hidden" role="alert">
               </div>
             </section>
           </div>
@@ -61,14 +59,12 @@
             game.addToGuesses();
             $("#message").text("WINNER!!!");
             $("#guess").attr("placeholder", "").prop("disabled", true);
-            $("#submit-button").prop("disabled", true);
-            $("#hint-button").prop("disabled", true);
-            $("#guess-counter").remove();
-            $("#hint-message").addClass("hidden");
+            $("#submit-button, #hint-button").prop("disabled", true);
+            $("#guess-counter, #hint-message").addClass("hidden");
             $("body").addClass("winner");
           } else {
             game.addToGuesses();
-            if (game.guessDistance() < 20) {
+            if (game.isWarm()) {
               $("#message").text("Good guess! You're getting warm. Try something a little " + game.lowerOrHigher() + ".");
               $("#counter").text(game.guessesLeft());
             } else {
@@ -78,24 +74,24 @@
           }
         } else {
           game.addToGuesses();
-          $("#message").text("Sorry, you lost! The number I was thinking of was " + game.winningNumber + ".");
+          $("#message").text("Sorry, you lost! The number I was thinking of was " + game.getWinningNumber() + ".");
           $("#guess").attr("placeholder", "").prop("disabled", true);
           $("#submit-button").prop("disabled", true);
           $("#hint-button").prop("disabled", true);
-          $("#guess-counter").remove();
+          $("#guess-counter").addClass("hidden");
           $("#hint-message").addClass("hidden");
           $("body").addClass("loser");
         }
       });
 
-      $("#hint-button").one('click', function() {
-        var hint = game.hint().sort(function(x, y) { return x- y; }).join(", ");
-        $("#hint-message p").html("It might be one of these: " + hint);
+      $("#hint-button").click(function() {
+        $("#hint-message").text("Choose wisely: " + game.getHint());
         $("#hint-message").removeClass("hidden");
-      })
+      });
 
       $("#play-again").click(function() {
-        location.reload(true);
-      })
+        game.reset();
+
+      });
     </script>
 </html>
