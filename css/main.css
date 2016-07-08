@@ -40,9 +40,6 @@ h1 {
 .winner form, .winner #hint-button, .winner #guess-counter, .winner #player-guesses, .winner #hint-message, .loser form, .loser #hint-button, .loser #guess-counter, .loser #player-guesses, .loser #hint-message {
   display: none; }
 
-#instructions, #status, #guess-counter, #player-guesses {
-  text-align: center; }
-
 #guess-counter, #hint-message {
   margin-top: 10px; }
 

@@ -15,8 +15,8 @@
           <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
             <section>
               <h1 class="text-center">Guessing Game</h1>
-              <p id="instructions">I'm thinking of a number between 1 and 100.<br /> Can you figure it out?</p>
-              <p id="status"></p>
+              <p id="instructions" class="text-center">I'm thinking of a number between 1 and 100.<br /> Can you figure it out?</p>
+              <p id="status" class="text-center"></p>
               <form id="game-form" class="form">
                 <div class="form-group">
                   <input id="guess" class="form-control" type="number" placeholder="Your Guess" autofocus required>
@@ -29,8 +29,8 @@
                 <button id="hint-button" class="btn btn-default" type="button">Get a Hint</button>
                 <button id="play-again"class="btn btn-default" type="button">Play Again</button>
               </div>
-              <p id="guess-counter">Guesses Remaining: <span id="counter">5</span></p>
-              <p id="player-guesses"></p>
+              <p id="guess-counter" class="text-center">Guesses Remaining: <span id="counter">5</span></p>
+              <p id="player-guesses" class="text-center"></p>
               <div id="hint-message" class="alert alert-info hidden" role="alert"></div>
             </section>
           </div>
@@ -47,6 +47,7 @@
         event.preventDefault();
 
         $("body").addClass("gameplay");
+        $("#guess").focus();
 
         game.setGuess($("#guess").val());
         $("#guess").val("");
@@ -80,6 +81,7 @@
     });
 
     $("#hint-button").click(function() {
+      $("#guess").focus();
       $("#hint-message").text("Choose wisely: " + game.getHint());
       $("#hint-message").removeClass("hidden");
     });
